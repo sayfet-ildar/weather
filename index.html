@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="null.css">
+    <title>Weather</title>
+</head>
+
+<body class="page">
+    <div class="container">
+        <form>
+            <div class="input">
+                <input type="text" class="inputCity" placeholder="Enter the city name">
+                <button class="search"><img src="./icons/search.svg"></button>
+            </div>
+        </form>
+        <div class="mainDisplay">
+            <div class="leftBlock">
+                <p class="temperature">14°</p>
+                <div class="iconWeather">
+                    <img id="image" src="./icons/cloud.svg">
+                </div>
+                <div class="bottomBlock">
+                    <p class="currentCity">Aktobe</p>
+                    <button class="addCity"><img src="./icons/heart.svg"></button>
+                </div>
+            </div>
+            <div class="rightBlock">
+                <p class="addedLocation">Added Locations:</p>
+                <div class="addedCities">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

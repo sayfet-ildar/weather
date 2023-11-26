@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+body {
+
+  background-image: url("./icons/back.png");
+  background-size: contain;
+  background-position: center;
+}
+
+.page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 600px;
+  margin: 0;
+  border: 1px solid black;
+  border-radius: 20px;
+  font-family: "Roboto", sans-serif;
+  background-color: white;
+}
+
+input {
+  outline: none;
+  font-size: 18px;
+  width: auto;
+  width: 100%;
+  display: block;
+}
+
+.search {
+  margin-left: 0;
+}
+
+.search img {
+  height: 35px;
+  width: 35px;
+  transition: transform 0.3s;
+}
+
+.search:active img,
+.search:hover img {
+  transform: scale(1.1);
+}
+
+
+
+.input {
+  padding: 10px;
+  border-bottom: 1px solid black;
+  justify-content: space-between;
+  display: flex;
+}
+
+.temperature {
+  font-size: 70px;
+  padding: 20px;
+}
+
+.currentCity {
+  font-size: 28px;
+  padding: 20px;
+}
+
+.addCity {
+  font-size: 28px;
+  margin-left: auto;
+  padding: 20px;
+}
+
+.addCity img {
+  height: 35px;
+  width: 35px;
+  transition: transform 0.3s;
+}
+
+
+.addCity:active img,
+.addCity:hover img {
+  transform: scale(1.1);
+}
+
+.mainDisplay {
+  width: 100%;
+  display: flex;
+}
+
+.leftBlock {
+  flex-basis: 50%;
+  display: flex;
+  flex-flow: column nowrap;
+  border-right: 1px solid black;
+}
+
+.iconWeather {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.iconWeather img {
+  height: 130px;
+  width: 130px;
+}
+
+.bottomBlock {
+  display: flex;
+}
+
+.rightBlock {
+  flex-basis: 50%;
+  display: flex;
+  font-size: 24px;
+  flex-flow: column nowrap;
+}
+
+.addedLocation {
+  border-bottom: 1px solid black;
+  padding: 20px;
+  align-items: center;
+}
+
+
+
+li {
+  display: flex;
+  list-style-type: none;
+  padding-bottom: 15px;
+  padding-left: 20px;
+}
+
+.addedCities {
+  padding-top: 15px;
+  overflow-y: auto;
+  max-height: 220px;
+}
+
+.cross {
+  position: relative;
+  margin-left: auto;
+  justify-content: space-between;
+  padding-right: 30px;
+}
+
+.cross::before,
+.cross::after {
+  content: "";
+  position: absolute;
+  background-color: black;
+  top: 50%;
+  left: 0px;
+  right: 15px;
+  height: 2px;
+  transform-origin: center;
+}
+
+.cross::before {
+  transform: rotate(45deg);
+}
+
+.cross::after {
+  transform: rotate(-45deg);
+}
