@@ -57,7 +57,7 @@ input {
 
 .temperature {
   font-size: 70px;
-  padding: 20px;
+  padding: 0 0 0 20px;
 }
 
 .currentCity {
@@ -65,7 +65,13 @@ input {
   padding: 20px;
 }
 
+.topBlock {
+  display: flex;
+}
+
 .addCity {
+  position: relative;
+  justify-content: space-between;
   font-size: 28px;
   margin-left: auto;
   padding: 20px;
@@ -83,6 +89,10 @@ input {
   transform: scale(1.1);
 }
 
+#li_time {
+  padding-bottom: 20px;
+}
+
 .mainDisplay {
   width: 100%;
   display: flex;
@@ -96,18 +106,63 @@ input {
 }
 
 .iconWeather {
-  margin-left: auto;
+  display: flex;
   margin-right: auto;
+  padding-bottom: 20px;
 }
 
 .iconWeather img {
-  height: 130px;
-  width: 130px;
+  height: 55px;
+  width: 55px;
 }
 
-.bottomBlock {
-  display: flex;
+.weatherDetails li {
+  font-size: 21px;
+  list-style-type: none;
+  padding-bottom: 15px;
+  padding-left: 20px;
 }
+
+
+.forecast {
+  font-size: 18px;
+  padding: 20px;
+  flex-direction: row;
+  align-items: center;
+}
+
+.forecast_item {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  border-bottom: 1px solid black;
+}
+
+.forecast_item:last-child {
+  border-bottom: none;
+}
+
+.div_forecast {
+  flex: 1;
+}
+
+.img_container {
+  padding-top: 40px;
+
+}
+
+.img_container img {
+  height: 40px;
+  width: 40px;
+}
+
+
+
+.forecast li {
+  list-style-type: none;
+}
+
+
 
 .rightBlock {
   flex-basis: 50%;
@@ -124,7 +179,7 @@ input {
 
 
 
-li {
+.addedCities li {
   display: flex;
   list-style-type: none;
   padding-bottom: 15px;

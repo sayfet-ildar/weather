@@ -19,13 +19,20 @@
         </form>
         <div class="mainDisplay">
             <div class="leftBlock">
-                <p class="temperature">14°</p>
-                <div class="iconWeather">
-                    <img id="image" src="./icons/cloud.svg">
-                </div>
-                <div class="bottomBlock">
+                <div class="topBlock">
                     <p class="currentCity">Aktobe</p>
                     <button class="addCity"><img src="./icons/heart.svg"></button>
+                </div>
+                <div class="iconWeather">
+                    <p class="temperature">14</p>
+                    <img id="image" src="./icons/cloud.svg">
+                </div>
+                <ul class="weatherDetails">
+                    <li id="feelsTemperature">Feels like: 10</li>
+                    <li id="sunriseTime">Sunrise: 03:21</li>
+                    <li id="sunsetTime">Sunset: 18:54</li>
+                </ul>
+                <div class="forecast">
                 </div>
             </div>
             <div class="rightBlock">
@@ -35,7 +42,9 @@
             </div>
         </div>
     </div>
-    <script src="main.js"></script>
+    <script type="module" src="main.js"></script>
+    <script type="module" src="const.js"></script>
+
 </body>
 
 </html>
