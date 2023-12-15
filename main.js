@@ -13,9 +13,28 @@ const serverUrl = "https://api.openweathermap.org/data/2.5/forecast/";
 const apiKey = "f660a2fb1e4bad108d6160b7f58c555f";
 
 import { ERROR, WEATHER_DETAILS } from "./const.js";
+import {
+  localStorageList,
+  getCityFromStorage,
+  localStorageCurrentCity,
+  getCurrentCity,
+} from "./local_storage.js";
+export { currentCity, list, textInput };
+
+function loadPageListener() {
+  const lastCity = getCurrentCity();
+  if (lastCity) {
+    textInput.value = lastCity;
+    fetchCityWeather();
+    clearInput();
+  }
+}
+
+window.addEventListener("load", loadPageListener());
 
 function searchButtonClick(event) {
   event.preventDefault();
+  getCurrentCity();
   fetchCityWeather(event);
   clearInput();
 }
@@ -24,7 +43,10 @@ searchButton.addEventListener("click", searchButtonClick);
 buttonFavList.addEventListener("click", addCityToFavourite);
 citiesList.addEventListener("click", getWeatherForCityInList);
 
-const list = [];
+const list = getCityFromStorage();
+
+renderList();
+localStorageList();
 
 function renderList() {
   citiesList.innerHTML = "";
@@ -42,7 +64,7 @@ function createListItem(city, parentElement) {
 
   const span = document.createElement("span");
   span.className = "cityNameInList";
-  span.textContent = city.name;
+  span.textContent = city;
   li.appendChild(span);
 
   const deleteButton = document.createElement("button");
@@ -128,7 +150,6 @@ function getWeatherDetails(data) {
 function fetchCityWeather() {
   const cityName = textInput.value.trim();
   const url = `${serverUrl}?q=${cityName}&appid=${apiKey}&units=metric`;
-
   fetch(url).then(handleResponse).then(handleData).catch(handleError);
 }
 
@@ -154,22 +175,18 @@ function handleError(error) {
 function getTemperature(data) {
   currentCity.textContent = data.city.name;
   currentTemperature.textContent = data.list[0].main.temp.toFixed(0);
+  getCurrentCity();
 }
 
-function addCityToFavourite(city) {
-  const newCity = {
-    name: city,
-  };
-
-  if (list.some((item) => item.name === currentCity.textContent)) {
+function addCityToFavourite() {
+  if (list.some((item) => item === currentCity.textContent)) {
     alert(ERROR.EXIST);
     clearInput();
   } else {
-    newCity.name = currentCity.textContent;
-    list.push(newCity);
-
-    clearInput();
+    list.push(currentCity.textContent);
     renderList();
+    localStorageList();
+    clearInput();
   }
 }
 
@@ -181,15 +198,11 @@ function deleteCityFromFavourite(event) {
   isCityInList(event, "cross");
   const liElement = event.target.closest("li");
   const cityNameInList = liElement.querySelector(".cityNameInList").textContent;
-
-  const indexCityinList = list.findIndex(
-    (city) => city.name === cityNameInList
-  );
-
+  const indexCityinList = list.findIndex((city) => city === cityNameInList);
   list.splice(indexCityinList, 1);
-
-  clearInput();
   renderList();
+  localStorageList();
+  clearInput();
 }
 
 function getWeatherForCityInList(event) {
@@ -198,7 +211,7 @@ function getWeatherForCityInList(event) {
   const cityNameInList = parentNode.querySelector(".cityNameInList");
   const cityName = cityNameInList.textContent;
   textInput.value = cityName;
-
   fetchCityWeather();
+  localStorageCurrentCity();
   clearInput();
 }

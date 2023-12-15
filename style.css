@@ -189,7 +189,7 @@ input {
 .addedCities {
   padding-top: 15px;
   overflow-y: auto;
-  max-height: 220px;
+  max-height: 505px;
 }
 
 .cross {
