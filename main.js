@@ -3,9 +3,6 @@ const searchButton = document.querySelector(".search");
 const buttonFavList = document.querySelector(".addCity");
 const textInput = document.querySelector(".inputCity");
 const citiesList = document.querySelector(".addedCities");
-const feelsTemperature = document.querySelector("#feelsTemperature");
-const sunriseTime = document.querySelector("#sunriseTime");
-const sunsetTime = document.querySelector("#sunsetTime");
 const forecast = document.querySelector(".forecast");
 const currentTemperature = document.querySelector(".temperature");
 const iconWeather = document.querySelector("#image");
@@ -13,6 +10,7 @@ const serverUrl = "https://api.openweathermap.org/data/2.5/forecast/";
 const apiKey = "f660a2fb1e4bad108d6160b7f58c555f";
 
 import { ERROR, WEATHER_DETAILS } from "./const.js";
+import { getFormattedTime, getWeatherDetails } from "./time.js";
 import {
   localStorageList,
   getCityFromStorage,
@@ -128,23 +126,6 @@ function clearInput() {
 
 function changeIconWeather(data) {
   iconWeather.src = `./icons/${data.list[0].weather[0].icon}.png`;
-}
-
-function getFormattedTime(time) {
-  const date = new Date(time * 1000);
-  const hours = date.getHours().toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  return hours + ":" + minutes;
-}
-
-function getWeatherDetails(data) {
-  feelsTemperature.textContent =
-    WEATHER_DETAILS.FEELS + data.list[0].main.feels_like.toFixed(0);
-
-  sunriseTime.textContent =
-    WEATHER_DETAILS.SUNRISE + getFormattedTime(data.city.sunrise);
-  sunsetTime.textContent =
-    WEATHER_DETAILS.SUNSET + getFormattedTime(data.city.sunset);
 }
 
 function fetchCityWeather() {
