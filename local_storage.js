@@ -4,10 +4,10 @@ export {
   localStorageCurrentCity,
   getCurrentCity,
 };
-import { list, textInput } from "./main.js";
+import { textInput, favorites } from "./main.js";
 
 function localStorageList() {
-  const citiesString = JSON.stringify(list);
+  const citiesString = JSON.stringify([...favorites]);
   localStorage.setItem("cityNames", citiesString);
 }
 function getCityFromStorage() {

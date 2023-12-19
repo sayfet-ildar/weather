@@ -17,7 +17,7 @@ import {
   localStorageCurrentCity,
   getCurrentCity,
 } from "./local_storage.js";
-export { currentCity, list, textInput };
+export { currentCity, textInput, favorites };
 
 function loadPageListener() {
   const lastCity = getCurrentCity();
@@ -42,6 +42,7 @@ buttonFavList.addEventListener("click", addCityToFavourite);
 citiesList.addEventListener("click", getWeatherForCityInList);
 
 const list = getCityFromStorage();
+const favorites = new Set(list);
 
 renderList();
 localStorageList();
@@ -51,7 +52,7 @@ function renderList() {
   const ul = document.createElement("ul");
   citiesList.appendChild(ul);
 
-  list.forEach((city) => {
+  favorites.forEach((city) => {
     createListItem(city, ul);
   });
 }
@@ -132,6 +133,7 @@ function fetchCityWeather() {
   const cityName = textInput.value.trim();
   const url = `${serverUrl}?q=${cityName}&appid=${apiKey}&units=metric`;
   fetch(url).then(handleResponse).then(handleData).catch(handleError);
+  localStorageCurrentCity();
 }
 
 function handleResponse(response) {
@@ -160,15 +162,10 @@ function getTemperature(data) {
 }
 
 function addCityToFavourite() {
-  if (list.some((item) => item === currentCity.textContent)) {
-    alert(ERROR.EXIST);
-    clearInput();
-  } else {
-    list.push(currentCity.textContent);
-    renderList();
-    localStorageList();
-    clearInput();
-  }
+  favorites.add(currentCity.textContent);
+  renderList();
+  localStorageList();
+  clearInput();
 }
 
 function isCityInList(event, className) {
@@ -179,8 +176,7 @@ function deleteCityFromFavourite(event) {
   isCityInList(event, "cross");
   const liElement = event.target.closest("li");
   const cityNameInList = liElement.querySelector(".cityNameInList").textContent;
-  const indexCityinList = list.findIndex((city) => city === cityNameInList);
-  list.splice(indexCityinList, 1);
+  favorites.delete(cityNameInList);
   renderList();
   localStorageList();
   clearInput();
