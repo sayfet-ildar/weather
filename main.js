@@ -33,6 +33,7 @@ window.addEventListener("load", loadPageListener());
 function searchButtonClick(event) {
   event.preventDefault();
   getCurrentCity();
+  localStorageCurrentCity();
   fetchCityWeather(event);
   clearInput();
 }
@@ -129,18 +130,9 @@ function changeIconWeather(data) {
   iconWeather.src = `./icons/${data.list[0].weather[0].icon}.png`;
 }
 
-function fetchCityWeather() {
-  const cityName = textInput.value.trim();
-  const url = `${serverUrl}?q=${cityName}&appid=${apiKey}&units=metric`;
-  fetch(url).then(handleResponse).then(handleData).catch(handleError);
-  localStorageCurrentCity();
-}
-
-function handleResponse(response) {
-  if (!response.ok) {
-    throw new Error(ERROR.VALID);
-  }
-  return response.json();
+function getTemperature(data) {
+  currentCity.textContent = data.city.name;
+  currentTemperature.textContent = data.list[0].main.temp.toFixed(0);
 }
 
 function handleData(data) {
@@ -150,15 +142,18 @@ function handleData(data) {
   renderForecast(data);
 }
 
-function handleError(error) {
-  alert(error);
-  clearInput();
-}
-
-function getTemperature(data) {
-  currentCity.textContent = data.city.name;
-  currentTemperature.textContent = data.list[0].main.temp.toFixed(0);
-  getCurrentCity();
+async function fetchCityWeather() {
+  const cityName = textInput.value.trim();
+  try {
+    const response = await fetch(
+      `${serverUrl}?q=${cityName}&appid=${apiKey}&units=metric`
+    );
+    const handleResponse = await response.json();
+    handleData(handleResponse);
+  } catch (err) {
+    alert(ERROR.VALID);
+    clearInput();
+  }
 }
 
 function addCityToFavourite() {
@@ -188,7 +183,7 @@ function getWeatherForCityInList(event) {
   const cityNameInList = parentNode.querySelector(".cityNameInList");
   const cityName = cityNameInList.textContent;
   textInput.value = cityName;
-  fetchCityWeather();
   localStorageCurrentCity();
+  fetchCityWeather();
   clearInput();
 }
